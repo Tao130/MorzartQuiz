@@ -11,6 +11,7 @@
         android:id="@+id/morzart"
         android:layout_width="261dp"
         android:layout_height="332dp"
+        android:layout_marginTop="32dp"
         android:scaleType="centerInside"
         android:src="@tools:sample/avatars"
         app:layout_constraintBottom_toBottomOf="parent"
