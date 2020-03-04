@@ -5,12 +5,13 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#B6F8C2"
     tools:context=".GameWonFragment">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="191dp"
-        android:layout_height="225dp"
+        android:id="@+id/round"
+        android:layout_width="178dp"
+        android:layout_height="219dp"
         android:src="@drawable/mark_maru"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,14 +20,27 @@
         app:layout_constraintVertical_bias="0.249" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/next_match_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="次へ"
+        android:fontFamily="serif-monospace"
+        android:text="@string/congratulations"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.274" />
+        app:layout_constraintTop_toBottomOf="@+id/round"
+        app:layout_constraintVertical_bias="0.136" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next_match"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/next_match_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

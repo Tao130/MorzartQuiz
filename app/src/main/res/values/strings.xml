@@ -6,4 +6,9 @@
     <string name="Play">Play</string>
     <string name="submit">SUBMIT</string>
     <string name="play">PLAY</string>
+    <string name="next_match">NEXT MATCH</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="try_again">Try Again</string>
+    <string name="try_again_button">TRY AGAIN?</string>
+    <string name="title">Mozart Intro Quiz</string>
 </resources>

@@ -19,11 +19,12 @@
 
         <ImageView
             android:id="@+id/quartet_image"
-            android:layout_width="233dp"
-            android:layout_height="166dp"
+            android:layout_width="318dp"
+            android:layout_height="238dp"
+            android:layout_marginTop="64dp"
             android:scaleType="fitEnd"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/quartet" />
@@ -49,7 +50,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.134" />
 
         <RadioGroup
             android:id="@+id/radioGroup"

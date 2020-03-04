@@ -66,6 +66,7 @@ class GameFragment : Fragment() {
     lateinit var answersNames: MutableList<String?>
     lateinit var answersIndexes: MutableList<Int>
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,10 +77,11 @@ class GameFragment : Fragment() {
         //カルテットリストのシャッフルと最初の問題の設定
         randomizeQuartets()
         val correctAnswer = correctAnswer(answersIndexes[0], answersNames[0])
+        answersNames.shuffle()
         // Bind this fragment class to the layout
         binding.game = this
-        val playQuartet = quartetSources[correctAnswer.id]
-        if ( playQuartet != null ) player = MediaPlayer.create(this.context, playQuartet)
+        val playQuartet = quartetSources[correctAnswer.id] //再生するカルテットの番号を取得
+        if (playQuartet != null) player = MediaPlayer.create(this.context, playQuartet)
         val timer = IntroCountDownTimer(30000, 100)
         //再生ボタンとメディアプレイヤーの紐付け
         binding.startButton.setOnClickListener {
@@ -87,6 +89,27 @@ class GameFragment : Fragment() {
             player.start()
             timer.start()
         }
+
+        binding.submitButton.setOnClickListener { view: View ->
+            val checkedId = binding.radioGroup.checkedRadioButtonId
+            if (-1 != checkedId) {
+                var selectedAnswerName = ""
+                when (checkedId) {
+                    R.id.radioButton1 -> selectedAnswerName = radioButton1.text.toString()
+                    R.id.radioButton2 -> selectedAnswerName = radioButton2.text.toString()
+                    R.id.radioButton3 -> selectedAnswerName = radioButton3.text.toString()
+                    R.id.radioButton4 -> selectedAnswerName = radioButton4.text.toString()
+                }
+
+                if (selectedAnswerName == correctAnswer.name) {
+                    view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
+                } else {
+                    view.findNavController().navigate(R.id.action_gameFragment_to_gameOverFragment)
+                }
+
+            }
+        }
+
         return binding.root
     }
 
@@ -98,8 +121,10 @@ class GameFragment : Fragment() {
     private fun randomizeQuartets() {
         quartetList.shuffle()
         answersIndexes = quartetList.slice(0..3).toMutableList() //選ばれた4つのカルテット番号のリスト
-        answersNames = mutableListOf(quartetNames[answersIndexes[0]], quartetNames[answersIndexes[1]],
-                quartetNames[answersIndexes[2]], quartetNames[answersIndexes[3]])
+        answersNames = mutableListOf(
+            quartetNames[answersIndexes[0]], quartetNames[answersIndexes[1]],
+            quartetNames[answersIndexes[2]], quartetNames[answersIndexes[3]]
+        )//選ばれた4つのカルテットの名前のリスト
     }
 
 }
