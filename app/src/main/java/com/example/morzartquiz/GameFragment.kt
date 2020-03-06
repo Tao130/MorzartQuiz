@@ -65,6 +65,7 @@ class GameFragment : Fragment() {
     private lateinit var binding: FragmentGameBinding
     lateinit var answersNames: MutableList<String?>
     lateinit var answersIndexes: MutableList<Int>
+    private var howManyQuestions = 0
 
 
     override fun onCreateView(
