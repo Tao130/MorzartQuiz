@@ -65,25 +65,29 @@
                 android:id="@+id/radioButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{game.answersNames[0]}" />
+                android:text="@{game.answersNames[0]}"
+                tools:text="String Quartet No.1 in G major, K.80/73f"/>
 
             <RadioButton
                 android:id="@+id/radioButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{game.answersNames[1]}" />
+                android:text="@{game.answersNames[1]}"
+                tools:text="String Quartet No.1 in G major, K.80/73f"/>
 
             <RadioButton
                 android:id="@+id/radioButton4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{game.answersNames[2]}" />
+                android:text="@{game.answersNames[2]}"
+                tools:text="String Quartet No.1 in G major, K.80/73f"/>
 
             <RadioButton
                 android:id="@+id/radioButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{game.answersNames[3]}" />
+                android:text="@{game.answersNames[3]}"
+                tools:text="String Quartet No.1 in G major, K.80/73f"/>
 
         </RadioGroup>
 
