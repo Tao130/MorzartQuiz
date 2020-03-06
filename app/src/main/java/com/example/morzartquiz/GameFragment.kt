@@ -83,7 +83,7 @@ class GameFragment : Fragment() {
         binding.game = this
         val playQuartet = quartetSources[correctAnswer.id] //再生するカルテットの番号を取得
         if (playQuartet != null) player = MediaPlayer.create(this.context, playQuartet)
-        val timer = IntroCountDownTimer(30000, 100)
+        val timer = IntroCountDownTimer(3000, 100)
         //再生ボタンとメディアプレイヤーの紐付け
         binding.startButton.setOnClickListener {
             start_button.visibility = View.INVISIBLE
@@ -103,6 +103,7 @@ class GameFragment : Fragment() {
                 }
 
                 if (selectedAnswerName == correctAnswer.name) {
+                    // won! navigate to the gameWonFragment.
                     view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
                 } else {
                     view.findNavController().navigate(R.id.action_gameFragment_to_gameOverFragment)
