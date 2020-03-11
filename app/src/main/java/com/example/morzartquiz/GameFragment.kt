@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.morzartquiz.databinding.FragmentGameBinding
@@ -69,6 +70,7 @@ class GameFragment : Fragment() {
     private var questionIndex = 0
     private var playQuartet: Int? = 0
     private lateinit var correctAnswer: CorrectAnswer
+    private val howManyQuiz = 3
     //再生時間の設定
     private val timer = IntroCountDownTimer(3000, 100)
 
@@ -110,13 +112,12 @@ class GameFragment : Fragment() {
                 if (selectedAnswerName == correctAnswer.name) {
                     questionIndex++
                     // Advance to the next question
-                    if (questionIndex < 3) {
+                    if (questionIndex < howManyQuiz) {
                         randomizeQuartets()
                         createMediaPlayer()
                         start_button.visibility = View.VISIBLE
                         binding.radioGroup.clearCheck()
                         answersNames.shuffle()
-
                         binding.invalidateAll()
                     } else {
                         // won! navigate to the gameWonFragment.
@@ -155,6 +156,8 @@ class GameFragment : Fragment() {
             quartetNames[answersIndexes[2]], quartetNames[answersIndexes[3]]
         )
         correctAnswer = CorrectAnswer(answersIndexes[0], answersNames[0])
+        (activity as AppCompatActivity).supportActionBar?.title = "Mozart Quiz (${questionIndex + 1} / $howManyQuiz)"
+
     }
 
 }
