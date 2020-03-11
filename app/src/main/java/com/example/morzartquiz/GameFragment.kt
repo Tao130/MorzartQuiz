@@ -157,7 +157,7 @@ class GameFragment : Fragment() {
         )
         correctAnswer = CorrectAnswer(answersIndexes[0], answersNames[0])
         //ラベルの変更
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.quiz) + "(${questionIndex + 1} / $howManyQuiz)"
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.quiz) + " " + "(${questionIndex + 1} / $howManyQuiz)"
     }
 
 }
