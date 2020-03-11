@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_game.*
  */
 class GameFragment : Fragment() {
 
-    data class CorrectAnswer(
+    class CorrectAnswer(
         val id: Int,
         val name: String?
     )
@@ -53,6 +53,7 @@ class GameFragment : Fragment() {
         1, 2, 3, 14, 15, 16, 17, 18, 19, 23
     )
 
+    //タイマーでメディアプレイヤーの再生時間を設定
     inner class IntroCountDownTimer(millisInFuture: Long, countDownInterval: Long) :
         CountDownTimer(millisInFuture, countDownInterval) {
         override fun onTick(millisUntilFinished: Long) {}
@@ -67,7 +68,9 @@ class GameFragment : Fragment() {
     private lateinit var answersIndexes: MutableList<Int>
     private var questionIndex = 0
     private var playQuartet: Int? = 0
-
+    private lateinit var correctAnswer: CorrectAnswer
+    //再生時間の設定
+    private val timer = IntroCountDownTimer(3000, 100)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,16 +78,16 @@ class GameFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_game, container, false)
-
-        //カルテットリストのシャッフルと最初の問題の設定
-        randomizeQuartets()
-        var correctAnswer = CorrectAnswer(answersIndexes[0], answersNames[0])
-        answersNames.shuffle()
         // Bind this fragment class to the layout
         binding.game = this
-        playQuartet = quartetSources[correctAnswer.id] //再生するカルテットの番号を取得
-        if (playQuartet != null) player = MediaPlayer.create(this.context, playQuartet!!)
-        val timer = IntroCountDownTimer(3000, 100)
+        //カルテットリストのシャッフルと最初の問題の設定
+        randomizeQuartets()
+        //正解のカルテット音源をセット
+        createMediaPlayer()
+        //答えをランダムに並び替え
+        answersNames.shuffle()
+
+
         //再生ボタンとメディアプレイヤーの紐付け
         binding.startButton.setOnClickListener {
             start_button.visibility = View.INVISIBLE
@@ -92,6 +95,7 @@ class GameFragment : Fragment() {
             timer.start()
         }
 
+        //提出ボタン
         binding.submitButton.setOnClickListener { view: View ->
             val checkedId = binding.radioGroup.checkedRadioButtonId
             if (-1 != checkedId) {
@@ -108,11 +112,11 @@ class GameFragment : Fragment() {
                     // Advance to the next question
                     if (questionIndex < 3) {
                         randomizeQuartets()
-                        correctAnswer = CorrectAnswer(answersIndexes[0], answersNames[0])
-                        answersNames.shuffle()
-                        playQuartet = quartetSources[correctAnswer.id] //再生するカルテットの番号を取得
-                        if (playQuartet != null) player = MediaPlayer.create(this.context, playQuartet!!)
+                        createMediaPlayer()
                         start_button.visibility = View.VISIBLE
+                        binding.radioGroup.clearCheck()
+                        answersNames.shuffle()
+
                         binding.invalidateAll()
                     } else {
                         // won! navigate to the gameWonFragment.
@@ -120,7 +124,8 @@ class GameFragment : Fragment() {
                             .navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment())
                     }
                 } else {
-                    view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment())
+                    view.findNavController()
+                        .navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment())
                 }
 
             }
@@ -134,13 +139,22 @@ class GameFragment : Fragment() {
         player.stop()
     }
 
+    private fun createMediaPlayer() {
+        playQuartet = quartetSources[correctAnswer.id] //再生するカルテットの番号を取得
+        player = MediaPlayer.create(this.context, playQuartet!!)
+    }
+
+    //カルテットリストをシャッフルし、頭から4つを選ぶ。1つ目を正解とする。
     private fun randomizeQuartets() {
         quartetList.shuffle()
-        answersIndexes = quartetList.slice(0..3).toMutableList() //選ばれた4つのカルテット番号のリスト
+        //選ばれた4つのカルテット番号のリスト
+        answersIndexes = quartetList.slice(0..3).toMutableList()
+        //選ばれた4つのカルテットの名前のリスト
         answersNames = mutableListOf(
             quartetNames[answersIndexes[0]], quartetNames[answersIndexes[1]],
             quartetNames[answersIndexes[2]], quartetNames[answersIndexes[3]]
-        )//選ばれた4つのカルテットの名前のリスト
+        )
+        correctAnswer = CorrectAnswer(answersIndexes[0], answersNames[0])
     }
 
 }
