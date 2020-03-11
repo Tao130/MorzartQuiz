@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_game.*
  */
 class GameFragment : Fragment() {
 
-    data class correctAnswer(
+    data class CorrectAnswer(
         val id: Int,
         val name: String?
     )
@@ -64,7 +64,7 @@ class GameFragment : Fragment() {
     private lateinit var player: MediaPlayer
     private lateinit var binding: FragmentGameBinding
     lateinit var answersNames: MutableList<String?>
-    lateinit var answersIndexes: MutableList<Int>
+    private lateinit var answersIndexes: MutableList<Int>
     private var questionIndex = 0
     private var playQuartet: Int? = 0
 
@@ -78,7 +78,7 @@ class GameFragment : Fragment() {
 
         //カルテットリストのシャッフルと最初の問題の設定
         randomizeQuartets()
-        var correctAnswer = correctAnswer(answersIndexes[0], answersNames[0])
+        var correctAnswer = CorrectAnswer(answersIndexes[0], answersNames[0])
         answersNames.shuffle()
         // Bind this fragment class to the layout
         binding.game = this
@@ -108,7 +108,7 @@ class GameFragment : Fragment() {
                     // Advance to the next question
                     if (questionIndex < 3) {
                         randomizeQuartets()
-                        correctAnswer = correctAnswer(answersIndexes[0], answersNames[0])
+                        correctAnswer = CorrectAnswer(answersIndexes[0], answersNames[0])
                         answersNames.shuffle()
                         playQuartet = quartetSources[correctAnswer.id] //再生するカルテットの番号を取得
                         if (playQuartet != null) player = MediaPlayer.create(this.context, playQuartet!!)
