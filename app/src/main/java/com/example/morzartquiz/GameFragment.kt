@@ -65,7 +65,8 @@ class GameFragment : Fragment() {
     private lateinit var binding: FragmentGameBinding
     lateinit var answersNames: MutableList<String?>
     lateinit var answersIndexes: MutableList<Int>
-    private var howManyQuestions = 0
+    private var questionIndex = 0
+    private var playQuartet: Int? = 0
 
 
     override fun onCreateView(
@@ -77,12 +78,12 @@ class GameFragment : Fragment() {
 
         //カルテットリストのシャッフルと最初の問題の設定
         randomizeQuartets()
-        val correctAnswer = correctAnswer(answersIndexes[0], answersNames[0])
+        var correctAnswer = correctAnswer(answersIndexes[0], answersNames[0])
         answersNames.shuffle()
         // Bind this fragment class to the layout
         binding.game = this
-        val playQuartet = quartetSources[correctAnswer.id] //再生するカルテットの番号を取得
-        if (playQuartet != null) player = MediaPlayer.create(this.context, playQuartet)
+        playQuartet = quartetSources[correctAnswer.id] //再生するカルテットの番号を取得
+        if (playQuartet != null) player = MediaPlayer.create(this.context, playQuartet!!)
         val timer = IntroCountDownTimer(3000, 100)
         //再生ボタンとメディアプレイヤーの紐付け
         binding.startButton.setOnClickListener {
@@ -103,9 +104,21 @@ class GameFragment : Fragment() {
                 }
 
                 if (selectedAnswerName == correctAnswer.name) {
-                    // won! navigate to the gameWonFragment.
-                    view.findNavController()
-                        .navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment())
+                    questionIndex++
+                    // Advance to the next question
+                    if (questionIndex < 3) {
+                        randomizeQuartets()
+                        correctAnswer = correctAnswer(answersIndexes[0], answersNames[0])
+                        answersNames.shuffle()
+                        playQuartet = quartetSources[correctAnswer.id] //再生するカルテットの番号を取得
+                        if (playQuartet != null) player = MediaPlayer.create(this.context, playQuartet!!)
+                        start_button.visibility = View.VISIBLE
+                        binding.invalidateAll()
+                    } else {
+                        // won! navigate to the gameWonFragment.
+                        view.findNavController()
+                            .navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment())
+                    }
                 } else {
                     view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment())
                 }
