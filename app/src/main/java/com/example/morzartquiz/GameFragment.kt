@@ -156,7 +156,7 @@ class GameFragment : Fragment() {
             quartetNames[answersIndexes[2]], quartetNames[answersIndexes[3]]
         )
         correctAnswer = CorrectAnswer(answersIndexes[0], answersNames[0])
-        (activity as AppCompatActivity).supportActionBar?.title = "Mozart Quiz (${questionIndex + 1} / $howManyQuiz)"
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.quiz) + "(${questionIndex + 1} / $howManyQuiz)"
 
     }
 

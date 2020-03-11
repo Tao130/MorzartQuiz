@@ -14,4 +14,6 @@
     <string name="about">About</string>
     <string name="rules">Let\'s listen to the intro and guess one of Mozart\'s 23 string quartets.</string>
     <string name="listen">Listen</string>
+    <string name="result">Result</string>
+    <string name="quiz">Quiz</string>
 </resources>
