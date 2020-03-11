@@ -122,7 +122,7 @@ class GameFragment : Fragment() {
                     } else {
                         // won! navigate to the gameWonFragment.
                         view.findNavController()
-                            .navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment())
+                            .navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment(howManyQuiz, questionIndex ))
                     }
                 } else {
                     view.findNavController()
@@ -156,8 +156,8 @@ class GameFragment : Fragment() {
             quartetNames[answersIndexes[2]], quartetNames[answersIndexes[3]]
         )
         correctAnswer = CorrectAnswer(answersIndexes[0], answersNames[0])
+        //ラベルの変更
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.quiz) + "(${questionIndex + 1} / $howManyQuiz)"
-
     }
 
 }
