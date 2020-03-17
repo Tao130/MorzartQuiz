@@ -1,7 +1,11 @@
 package com.example.morzartquiz
 
 
+import android.media.AudioAttributes
+import android.media.AudioManager
 import android.media.MediaPlayer
+import android.media.SoundPool
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
@@ -75,6 +79,8 @@ class GameFragment : Fragment() {
     private val howManyQuiz = 3
     //再生時間の設定
     private val timer = IntroCountDownTimer(3000, 100)
+    private lateinit var soundPool: SoundPool
+    private var soundResId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -129,7 +135,23 @@ class GameFragment : Fragment() {
                             .navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment(howManyQuiz, questionIndex ))
                     }
                 } else {
-                        view.findNavController()
+                    //不正解時にサウンド再生
+                    soundPool = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                        @Suppress("DEPRECATION")
+                        (SoundPool(1, AudioManager.STREAM_MUSIC, 0))
+                    } else {
+                        val audioAttributes = AudioAttributes.Builder()
+                            .setUsage(AudioAttributes.USAGE_MEDIA)
+                            .build()
+                        SoundPool.Builder()
+                            .setMaxStreams(1)
+                            .setAudioAttributes(audioAttributes)
+                            .build()
+                    }
+                    soundResId = soundPool.load(context, R.raw.uncorrect, 1)
+                    soundPool.play(soundResId, 1.0f, 1.0f, 1, 0, 1.0f)
+
+                    view.findNavController()
                             .navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment(correctAnswer.name!!))
                 }
 

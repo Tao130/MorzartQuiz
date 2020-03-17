@@ -1,6 +1,11 @@
 package com.example.morzartquiz
 
 
+import android.media.AudioAttributes
+import android.media.AudioManager
+import android.media.AudioManager.STREAM_MUSIC
+import android.media.SoundPool
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -36,3 +41,4 @@ class GameOverFragment : Fragment() {
 
 
 }
+
