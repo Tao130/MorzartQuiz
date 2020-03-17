@@ -125,8 +125,8 @@ class GameFragment : Fragment() {
                             .navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment(howManyQuiz, questionIndex ))
                     }
                 } else {
-                    view.findNavController()
-                        .navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment())
+                        view.findNavController()
+                            .navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment(correctAnswer.name!!))
                 }
 
             }

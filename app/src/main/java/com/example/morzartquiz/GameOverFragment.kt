@@ -16,6 +16,7 @@ import com.example.morzartquiz.databinding.FragmentGameOverBinding
 class GameOverFragment : Fragment() {
 
     private lateinit var binding: FragmentGameOverBinding
+    lateinit var arg: GameOverFragmentArgs
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,9 +24,13 @@ class GameOverFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_game_over, container, false)
+        binding.gameOver = this
         binding.tryAgainButton.setOnClickListener { view: View ->
             view.findNavController().navigate(GameOverFragmentDirections.actionGameOverFragmentToGameFragment())
         }
+
+        arg = GameOverFragmentArgs.fromBundle(arguments!!)
+
         return binding.root
     }
 

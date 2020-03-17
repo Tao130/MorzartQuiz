@@ -55,6 +55,9 @@
             android:id="@+id/action_gameOverFragment_to_gameFragment"
             app:destination="@id/gameFragment"
             app:popUpTo="@id/titleFragment" />
+        <argument
+            android:name="nameCorrect"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
