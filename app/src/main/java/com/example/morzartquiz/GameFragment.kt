@@ -73,6 +73,7 @@ class GameFragment : Fragment() {
     private var playQuartet: Int? = 0
     private lateinit var correctAnswer: CorrectAnswer
     private val howManyQuiz = 3
+
     //再生時間の設定
     private val timer = IntroCountDownTimer(3000, 100)
 
@@ -80,6 +81,7 @@ class GameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_game, container, false)
         // Bind this fragment class to the layout
