@@ -59,14 +59,4 @@
             android:name="nameCorrect"
             app:argType="string" />
     </fragment>
-    <fragment
-        android:id="@+id/aboutFragment"
-        android:name="com.example.morzartquiz.AboutFragment"
-        android:label="@string/about"
-        tools:layout="@layout/fragment_about" />
-    <fragment
-        android:id="@+id/listenFragment"
-        android:name="com.example.morzartquiz.ListenFragment"
-        android:label="@string/listen"
-        tools:layout="@layout/fragment_listen" />
 </navigation>
